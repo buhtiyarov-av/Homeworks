@@ -1,0 +1,11 @@
+.image {
+  vertical-align: middle;
+  padding-right: 5px;
+}
+.a {
+  display:inline-block;
+  padding-left: 10px;
+}
+.tweet-stat-icon {
+    margin-right: 8px;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homework 1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const HelloComponent = React.createClass({
+            render() {
+                return (
+                    <div>
+                        <h1>Статья by {this.props.authorName}</h1>
+                        <p>Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья
+                        Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья
+                        Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья
+                        Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья
+                        Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья Статья</p>
+                        <div className="a">
+                            <img
+                                src="http://www.iconsearch.ru/uploads/icons/realistik-new/48x48/love.png"
+                                height={20}
+                                width={20}
+                                className="image"/>
+                            {this.props.likes}
+                        </div>
+                        <div className="a">
+                            <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQCsNsEHux8_GihV2efIBwaApyWPyiJdOo83pRk3wObe6_PhMzZg"
+                                height={20}
+                                width={20}
+                                className="image"/>
+                            {this.props.posts}
+                        </div>
+                    </div>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <HelloComponent authorName="Автор Авторович" likes={100} posts={200}/>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

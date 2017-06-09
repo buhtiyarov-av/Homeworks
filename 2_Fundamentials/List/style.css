@@ -1,0 +1,84 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+body {
+    background-color: #eaeaea;
+    font-family: 'PT Mono', monospace;
+}
+.avatar {
+    max-width: 200px;
+    min-width: 200px;
+    border-radius: 3px;
+    align-self: center;
+    margin-top: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.entry-body {
+    max-width: 100%;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 3px;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.entry-text {
+    margin-top: -5px;
+}
+.name {
+    text-align: center;
+}
+.city {
+    margin-top: -10px;
+    text-align:center;
+}
+.contacts {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: -10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.social {
+    text-decoration: none;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+.icon {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+}
+.icon.facebook {
+    width: 48px;
+    height: 48px;
+    background-size: 48px 48px;
+    background-image: url('https://image.flaticon.com/icons/svg/33/33702.svg');
+}
+.icon.github {
+    width: 48px;
+    height: 48px;
+    background-size: 48px 48px;
+    background-image: url("http://s1.iconbird.com/ico/2013/9/445/w48h481380374976Github.png");
+}
+.input-field {
+    margin-left: 10px;
+    line-height: 2;
+    font-size: 18px;
+    height: auto;
+    padding-left: 10px;
+    align-self: center;
+}
+A {
+    text-decoration: none;
+}
+A:hover {
+    text-decoration: underline;
+}
