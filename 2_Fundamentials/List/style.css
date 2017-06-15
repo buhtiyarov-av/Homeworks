@@ -1,11 +1,19 @@
 #root {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap-reverse;
+    align-content: center;
+    justify-content:space-around;
 }
 body {
     background-color: #eaeaea;
     font-family: 'PT Mono', monospace;
+}
+.list-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
 }
 .avatar {
     max-width: 200px;
@@ -16,6 +24,7 @@ body {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .entry-body {
+    flex-grow: 1;
     max-width: 100%;
     margin-top: 2px;
     display: flex;

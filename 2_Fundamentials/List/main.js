@@ -326,7 +326,7 @@ const List = React.createClass({
 
     render() {
         return(
-            <div>
+            <div className="list-body">
                 {
                     this.props.items.map((student) =>
                         <Entry
