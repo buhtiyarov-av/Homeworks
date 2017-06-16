@@ -1,7 +1,23 @@
+const NOTE_COLORS = [
+    {
+        description: "Common note",
+        color: "yellow"
+    },
+    {
+        description: "Important note",
+        color: "tomato"
+    },
+    {
+        description: "Interesting note",
+        color: "lawngreen"
+    },
+    {
+        description: "Insignificant note",
+        color: "cornsilk"
+    }
+]
+
 const DEFAULT_COLOR = 'yellow';
-const IMPORTANT_COLOR = 'tomato';
-const OF_INTEREST_COLOR = 'lawngreen';
-const INSIGNIFICANT_COLOR = 'cornsilk';
 
 const Note = React.createClass({
     handleDelete() {
@@ -24,10 +40,26 @@ const Note = React.createClass({
     }
 });
 
+const ColorSelector = React.createClass({
+    render() {
+        const {
+            color,
+            description
+        } = this.props;
+        return (
+            <div className="color-selector"
+                style={{backgroundColor: color}}
+                title={description}
+                onClick={this.props.onColorSelected}/>
+        );
+    }
+});
+
 const NoteEditor = React.createClass({
     getInitialState() {
         return {
-            text: ''
+            text: '',
+            color: DEFAULT_COLOR
         };
     },
 
@@ -37,10 +69,16 @@ const NoteEditor = React.createClass({
         });
     },
 
+    handleColorChange(color) {
+        this.setState({
+            color: color
+        });
+    },
+
     handleNoteAdd() {
         const newNote = {
             text: this.state.text,
-            color: DEFAULT_COLOR,
+            color: this.state.color,
             id: Date.now()
         };
 
@@ -65,8 +103,21 @@ const NoteEditor = React.createClass({
                     value={this.state.text}
                     onChange={this.handleTextChange}
                 />
-
-                <button className="editor__button" onClick={this.handleNoteAdd}>Add</button>
+                <div className="control-pane">
+                    <div className="selector-pane">
+                        {
+                            this.props.colorProps.map((colorSelector) =>
+                                <ColorSelector
+                                    color={colorSelector.color}
+                                    description={colorSelector.description}
+                                    key={colorSelector.color}
+                                    onColorSelected={this.handleColorChange.bind(null, colorSelector.color)}
+                                />
+                            )
+                        }
+                    </div>
+                    <button className="editor__button" onClick={this.handleNoteAdd}>Add</button>
+                </div>
             </div>
         );
     }
@@ -153,7 +204,7 @@ const NotesApp = React.createClass({
             <div className="app">
                 <h2 className="app__header">NotesApp</h2>
 
-                <NoteEditor onNoteAdd={this.handleNoteAdd} />
+                <NoteEditor onNoteAdd={this.handleNoteAdd} colorProps={NOTE_COLORS}/>
 
                 <NotesGrid
                     notes={this.state.notes}

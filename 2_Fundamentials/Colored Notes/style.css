@@ -115,3 +115,27 @@ body {
         color: black;
         text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
     }
+.control-pane {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+    .selector-pane {
+        flex-wrap: wrap;
+        display: flex;
+        max-width: 40%;
+        min-width: 20%;
+        justify-content: space-between;
+        padding: 5px;
+    }
+        .color-selector {
+            display: inline;
+            align-self: center;
+            width: 20px;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
