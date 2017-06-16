@@ -1,19 +1,28 @@
 const NOTE_COLORS = [
     {
         description: "Common note",
-        color: "yellow"
+        color: "yellow",
+        border: "#cccc00"
     },
     {
         description: "Important note",
-        color: "tomato"
+        color: "tomato",
+        border: "#db563f"
     },
     {
         description: "Interesting note",
-        color: "lawngreen"
+        color: "lawngreen",
+        border: "#72e500"
     },
     {
         description: "Insignificant note",
-        color: "cornsilk"
+        color: "cornsilk",
+        border: "#d3d1d1"
+    },
+    {
+        description: "Miscellaneous note",
+        color: "white",
+        border: "#cecece"
     }
 ]
 
@@ -44,13 +53,20 @@ const ColorSelector = React.createClass({
     render() {
         const {
             color,
-            description
+            description,
+            border,
+            children
         } = this.props;
         return (
             <div className="color-selector"
-                style={{backgroundColor: color}}
+                style={
+                    {
+                        backgroundColor: color,
+                        border: `1px solid ${border}`
+                    }
+                }
                 title={description}
-                onClick={this.props.onColorSelected}/>
+                onClick={this.props.onColorSelected}>{children}</div>
         );
     }
 });
@@ -108,11 +124,13 @@ const NoteEditor = React.createClass({
                         {
                             this.props.colorProps.map((colorSelector) =>
                                 <ColorSelector
+                                    key={colorSelector.color}
                                     color={colorSelector.color}
                                     description={colorSelector.description}
-                                    key={colorSelector.color}
-                                    onColorSelected={this.handleColorChange.bind(null, colorSelector.color)}
-                                />
+                                    border={colorSelector.border}
+                                    onColorSelected={this.handleColorChange.bind(null, colorSelector.color)}>
+                                    {colorSelector.color === this.state.color ? '⋎' : null}
+                                </ColorSelector>
                             )
                         }
                     </div>
