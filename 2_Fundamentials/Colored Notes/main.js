@@ -24,7 +24,8 @@ const NOTE_COLORS = [
         color: "white",
         border: "#cecece"
     }
-]
+];
+
 
 const DEFAULT_COLOR = 'yellow';
 
@@ -129,7 +130,7 @@ const NoteEditor = React.createClass({
                                     description={colorSelector.description}
                                     border={colorSelector.border}
                                     onColorSelected={this.handleColorChange.bind(null, colorSelector.color)}>
-                                    {colorSelector.color === this.state.color ? '⋎' : null}
+                                    {colorSelector.color === this.state.color ? '✓' : null}
                                 </ColorSelector>
                             )
                         }
