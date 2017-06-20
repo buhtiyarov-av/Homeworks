@@ -1,0 +1,88 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#root {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+.upper-block {
+    display:flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+.editor-panel {
+	display: flex;
+    flex-direction: row;
+	align-items: center;
+    border: 1px solid;
+}
+.editor {
+	display: flex;
+    flex-direction: column;
+    width: 85%;
+    border: 1px solid;
+}
+.controls {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+    border: 1px solid;
+}
+.edit {
+    margin-left: 10px;
+    line-height: 2;
+    font-size: 18px;
+    height: auto;
+    padding-left: 10px;
+    align-self: center;
+    border: 1px solid;
+}
+.marker {
+    border: 1px solid;
+}
+.preview {
+    width: 48px;
+}
+
+.post {
+	width: 15%;
+}
+.lower-block {
+	text-align: center;
+    border: 1px solid;
+}
+.blog-body {
+	display: flex;
+	flex-direction: row;
+    border: 1px solid;
+}
+.article-grid {
+	text-decoration: none;
+	margin-top: 5px;
+	display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+.article-body {
+    display: flex;
+    flex-direction: column;
+}
+.article-title {
+    display: flex;
+    flex-direction: row;
+}
+.article-attachment {
+    float: right;
+
+}
+.article-search {
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 5px;
+    border: 1px solid;
+}
