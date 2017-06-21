@@ -82,7 +82,7 @@ const EditorPanel = React.createClass({
     handleArticleAdd() {
         const date = new Date();
         const newArticle = {
-            id: Math.random().toString(36).substr(2, 5),
+            id: Math.random().toString(36).substr(2, 3),
             name: this.state.author,
             avatar: "http://i.imgur.com/H357yaH.jpg",
             title: this.state.title,
