@@ -1,36 +1,62 @@
-const Tweet = React.createClass({
+const App = React.createClass({
+    getInitialState() {
+        return ({
+            divStyle: {
+                "-webkit-user-select": "none",
+                "-moz-user-select": "none",
+                "-ms-user-select": "none",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100px",
+	            height: "100px",
+	            background: "red",
+	            borderRadius: "50px",
+                color: "white",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
+            },
+            scale: {
+                r: 1
+            },
+            container: {
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center"
+            }
+        });
+    },
+    isClicked() {
+        this.setState((prevState) => {
+            return {
+                scale: {
+                    r: prevState.scale.r <= 2 ? prevState.scale.r += 0.1 : 0.9
+                },
+                divStyle: {
+                    ...prevState.divStyle,
+                    transform: `scale(${this.state.scale.r}, ${this.state.scale.r})`,
+                    transition: "transform 0.3s"
+                }
+            }
+        });
+    },
     render() {
+        const style = this.state.divStyle;
+
         return (
-            <div>
-                <img src={this.props.avatar} />
-                <h3>@{this.props.author}</h3>
-                <p>{this.props.text}</p>
-                <img src={this.props.image} />
-                <br />
-                likes: {this.props.likes} retweets: {this.props.retweets}
+            <div style={this.state.container}>
+                <div style={style} onClick={this.isClicked}>click me</div>
             </div>
         );
     }
 });
 
-const Feed = React.createClass({
-    render() {
-        return (
-            <div>
-                <Tweet
-                    author='bennettb83'
-                    text='Distinguishing between a muffin and chihuahua will be the next big hurdle in #machinelearning. @Redo @Louis_Monier'
-                    image='https://pbs.twimg.com/media/ChL0GdiU0AIWdC_.jpg'
-                    avatar='https://pbs.twimg.com/profile_images/697667697564200960/j72a_Ozw_bigger.jpg'
-                    likes={233}
-                    retweets={282}
-                />
-            </div>
-        );
-    }
-});
-
+// You could pass dynamic stuff here as needed.
 ReactDOM.render(
-    <Feed />,
-    document.getElementById('root')
+    <App/>,
+    document.getElementById("root")
 );
