@@ -31,6 +31,8 @@ const ARTICLES = [
     }
 ];
 
+const TAGS = ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "tag8", "tag9", "tag10", "tag11", "tag12", "tag13", "tag14", "tag15", "tag16", "tag17", "tag18"];
+
 const HeaderPanel = React.createClass({
 
     render() {
@@ -82,7 +84,7 @@ const EditorPanel = React.createClass({
     handleArticleAdd() {
         const date = new Date();
         const newArticle = {
-            id: Math.random().toString(36).substr(2, 5),
+            id: Math.random().toString(36).substr(2, 10),
             name: this.state.author,
             avatar: "http://i.imgur.com/H357yaH.jpg",
             title: this.state.title,
@@ -167,7 +169,15 @@ const BlogBody = React.createClass({
                         <button className="search-button" style={{width: "25%"}}>Search</button>
                     </div>
                     <div className="tags-cloud">
-                        tags
+                        {
+                            this.props.tagsBrowsable.map((tag, index) =>
+                                <div
+                                    className="tag-block"
+                                    key={index}>
+                                    {tag}
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
@@ -211,7 +221,8 @@ const BlogApp = React.createClass({
 
     getInitialState() {
         return ({
-            articles: ARTICLES
+            articles: [],
+            tags: []
         });
     },
 
@@ -221,15 +232,45 @@ const BlogApp = React.createClass({
         });
     },
 
+    /*handleTagAdd(newTag) {
+        this.setState({
+            tags: [newTag, ...this.state.savedTags]
+        });
+    },*/
+
+    componentDidMount() {
+        const savedArticles = JSON.parse(localStorage.getItem('blogArticles'));
+        /*const savedTags = JSON.parse(localStorage.getItem('blogTags'));
+*/
+        if (savedArticles) {
+            this.setState({
+                articles: savedArticles
+            });
+        }
+        /*if (savedTags) {
+            this.setState({
+                tags: savedTags
+            });
+        }*/
+    },
+
+    componentDidUpdate() {
+        const savedArticles = JSON.stringify(this.state.articles);
+        /*const savedTags = JSON.stringify(this.state.tags);*/
+        /*localStorage.setItems('blogTags', savedTags);*/
+        localStorage.setItem('blogArticles', savedArticles);
+    },
+
     render() {
+
         return (
             <div>
                 <div className="upper-block">
                     <HeaderPanel/>
-                    <EditorPanel onArticleAdd={this.handleArticleAdd}/>
+                    <EditorPanel onArticleAdd={this.handleArticleAdd} /*onTagAdd={this.handleTagAdd}*//>
                 </div>
                 <div className="lower-block">
-                    <BlogBody articles={this.state.articles}/>
+                    <BlogBody articles={this.state.articles} tagsBrowsable={/*this.state.tags*/TAGS}/>
                 </div>
             </div>
         );
