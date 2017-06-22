@@ -1,38 +1,3 @@
-const ARTICLES = [
-    {
-        id: "1",
-        avatar: "http://i.imgur.com/H357yaH.jpg",
-        name: "Xxxxx Xxxxx",
-        title: "TITLE1",
-        date: "11.11.11",
-        tags: "TAG1",
-        text: "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT BLAH",
-        attachment: "https://cs541608.userapi.com/c841635/v841635702/1885/c9YxT2tBQWQ.jpg"
-    },
-    {
-        id: "2",
-        avatar: "http://i.imgur.com/H357yaH.jpg",
-        name: "Yxxxx Yxxxx",
-        title: "TITLE2",
-        date: "11.11.11",
-        tags: "TAG2",
-        text: "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT BLEH",
-        attachment: "https://cs541608.userapi.com/c841635/v841635702/1885/c9YxT2tBQWQ.jpg"
-    },
-    {
-        id: "3",
-        avatar: "http://i.imgur.com/H357yaH.jpg",
-        name: "Zxxxx Zxxxx",
-        title: "TITLE3",
-        date: "11.11.11",
-        tags: "TAG3",
-        text: "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT BLOH",
-        attachment: "https://cs541608.userapi.com/c841635/v841635702/1885/c9YxT2tBQWQ.jpg"
-    }
-];
-
-const TAGS = ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "tag8", "tag9", "tag10", "tag11", "tag12", "tag13", "tag14", "tag15", "tag16", "tag17", "tag18"];
-
 const HeaderPanel = React.createClass({
 
     render() {
@@ -52,7 +17,7 @@ const EditorPanel = React.createClass({
             name: "",
             title: "",
             text: "",
-            tags: "",
+            tags: [],
             attachment: ""
         };
     },
@@ -76,23 +41,27 @@ const EditorPanel = React.createClass({
     },
 
     handleTagChange(addTag) {
+        const tagArray = addTag.target.value.split(',')
         this.setState({
-            tags: addTag.target.value
+            tags: tagArray
         });
     },
 
     handleArticleAdd() {
         const date = new Date();
+        const uniqueNewTags = deleteNotUniq(this.state.tags);
         const newArticle = {
             id: Math.random().toString(36).substr(2, 10),
-            name: this.state.author,
+            name: this.state.name,
             avatar: "http://i.imgur.com/H357yaH.jpg",
             title: this.state.title,
             date: date.toISOString().substring(0, 10),
             text: this.state.text,
-            tags: this.state.tags,
+            tags: uniqueNewTags,
             attachment: this.state.attachment
         };
+
+        this.props.onTagAdd(uniqueNewTags);
         this.props.onArticleAdd(newArticle);
         this.resetState();
     },
@@ -104,7 +73,7 @@ const EditorPanel = React.createClass({
             avatar: "http://i.imgur.com/H357yaH.jpg",
             title: "",
             text: "",
-            tags: "",
+            tags: [],
             attachment: ""
         });
     },
@@ -232,32 +201,33 @@ const BlogApp = React.createClass({
         });
     },
 
-    /*handleTagAdd(newTag) {
+    handleTagAdd(newTags) {
+        this.state.tags.push.apply(this.state.tags, newTags);
         this.setState({
-            tags: [newTag, ...this.state.savedTags]
+            tags: deleteNotUniq(this.state.tags)
         });
-    },*/
+    },
 
     componentDidMount() {
         const savedArticles = JSON.parse(localStorage.getItem('blogArticles'));
-        /*const savedTags = JSON.parse(localStorage.getItem('blogTags'));
-*/
+        const savedTags = JSON.parse(localStorage.getItem('blogTags'));
+
         if (savedArticles) {
             this.setState({
                 articles: savedArticles
             });
         }
-        /*if (savedTags) {
+        if (savedTags) {
             this.setState({
-                tags: savedTags
+                tags: deleteNotUniq(savedTags)
             });
-        }*/
+        }
     },
 
     componentDidUpdate() {
         const savedArticles = JSON.stringify(this.state.articles);
-        /*const savedTags = JSON.stringify(this.state.tags);*/
-        /*localStorage.setItems('blogTags', savedTags);*/
+        const savedTags = JSON.stringify(this.state.tags);
+        localStorage.setItem('blogTags', savedTags);
         localStorage.setItem('blogArticles', savedArticles);
     },
 
@@ -267,10 +237,10 @@ const BlogApp = React.createClass({
             <div>
                 <div className="upper-block">
                     <HeaderPanel/>
-                    <EditorPanel onArticleAdd={this.handleArticleAdd} /*onTagAdd={this.handleTagAdd}*//>
+                    <EditorPanel onArticleAdd={this.handleArticleAdd} onTagAdd={this.handleTagAdd}/>
                 </div>
                 <div className="lower-block">
-                    <BlogBody articles={this.state.articles} tagsBrowsable={/*this.state.tags*/TAGS}/>
+                    <BlogBody articles={this.state.articles} tagsBrowsable={this.state.tags}/>
                 </div>
             </div>
         );
@@ -280,3 +250,10 @@ const BlogApp = React.createClass({
 ReactDOM.render(
     <BlogApp/>, document.getElementById('root')
 );
+
+function deleteNotUniq(arr) {
+    var seen = {};
+    return arr.filter(function(item) {
+        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    });
+}
