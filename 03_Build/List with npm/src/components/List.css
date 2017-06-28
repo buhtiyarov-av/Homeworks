@@ -1,0 +1,6 @@
+.list-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
+}

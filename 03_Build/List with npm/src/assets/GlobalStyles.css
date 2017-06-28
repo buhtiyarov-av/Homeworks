@@ -1,0 +1,11 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+    align-content: center;
+    justify-content:space-around;
+}
+body {
+    background-color: #eaeaea;
+    font-family: 'PT Mono', monospace;
+}

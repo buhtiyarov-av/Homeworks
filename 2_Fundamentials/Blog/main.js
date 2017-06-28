@@ -17,7 +17,7 @@ const EditorPanel = React.createClass({
             name: "",
             title: "",
             text: "",
-            tags: [],
+            tags: "",
             attachment: ""
         };
     },
@@ -57,7 +57,7 @@ const EditorPanel = React.createClass({
             title: this.state.title,
             date: date.toISOString().substring(0, 10),
             text: this.state.text,
-            tags: uniqueNewTags,
+            tags: uniqueNewTags.toString(),
             attachment: this.state.attachment
         };
 
@@ -73,7 +73,7 @@ const EditorPanel = React.createClass({
             avatar: "http://i.imgur.com/H357yaH.jpg",
             title: "",
             text: "",
-            tags: [],
+            tags: "",
             attachment: ""
         });
     },
@@ -110,7 +110,22 @@ const EditorPanel = React.createClass({
     }
 });
 
+const TagList = React.createClass({
+    render() {
+        const item = this.props;
+
+        return (
+            <div>
+                {item},
+            </div>
+        );
+    }
+});
+
 const BlogBody = React.createClass({
+    handleSearchChanged(queue) {
+        this.props.onSearchChange(queue.target.value)
+    },
 
     render() {
 
@@ -122,19 +137,20 @@ const BlogBody = React.createClass({
                             <Article
                                 key={article.id}
                                 avatar={article.avatar}
-                                author={article.name}
                                 title={article.title}
-                                date={article.date}
-                                tags={article.tags}
                                 text={article.text}
                                 attachment={article.attachment}
-                            />
+                            >
+                                {article.date}
+                                {article.tags}
+                                {article.name}
+                            </Article>
                         )
                     }
                 </div>
                 <div className="article-search">
                     <div>
-                        <input placeholder="Search by tags..." style={{width: "70%"}} type="text"/>
+                        <input placeholder="Search by..." style={{width: "70%"}} type="text" onChange={this.handleSearchChanged}/>
                         <button className="search-button" style={{width: "25%"}}>Search</button>
                     </div>
                     <div className="tags-cloud">
@@ -158,13 +174,11 @@ const Article = React.createClass({
 
     render() {
         const {
-            author,
             avatar,
             title,
-            date,
-            tags,
             text,
-            attachment
+            attachment,
+            children
         } = this.props;
 
         return (
@@ -172,9 +186,7 @@ const Article = React.createClass({
                 <div className="article-title">
                     <img src={avatar} style={{width: "100px", height: "100px", border: "3px solid black"}}/>
                     <div style={{alignSelf:"center", marginLeft:"10px"}}>
-                        {title}
-                        <br/>
-                        {date} {tags} {author}
+                        {children}
                     </div>
                 </div>
                 <div className="article-text">
@@ -191,7 +203,8 @@ const BlogApp = React.createClass({
     getInitialState() {
         return ({
             articles: [],
-            tags: []
+            tags: [],
+            articleFilter: ""
         });
     },
 
@@ -231,7 +244,20 @@ const BlogApp = React.createClass({
         localStorage.setItem('blogArticles', savedArticles);
     },
 
+    searchChanged(searchQueue) {
+        this.setState({
+            articleFilter: searchQueue
+        });
+    },
+
     render() {
+
+        const articlesFiltered = this.state.articles.filter((article) =>
+             this.state.articles[name].toLowerCase().indexOf(this.articleFilter.toLowerCase()) !== -1 ||
+             this.state.articles[title].toLowerCase().indexOf(this.articleFilter.toLowerCase()) !== -1 ||
+             this.state.articles[text].toLowerCase().indexOf(this.articleFilter.toLowerCase()) !== -1 ||
+             this.state.articles[tags].toLowerCase().indexOf(this.articleFilter.toLowerCase()) !== -1;
+        );
 
         return (
             <div>
@@ -240,7 +266,7 @@ const BlogApp = React.createClass({
                     <EditorPanel onArticleAdd={this.handleArticleAdd} onTagAdd={this.handleTagAdd}/>
                 </div>
                 <div className="lower-block">
-                    <BlogBody articles={this.state.articles} tagsBrowsable={this.state.tags}/>
+                    <BlogBody articles={articlesFiltered} tagsBrowsable={this.state.tags} onSearchChange={this.searchChanged}/>
                 </div>
             </div>
         );
