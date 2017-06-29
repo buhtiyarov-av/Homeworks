@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './ListApp.css';
 
 import SearchField from './SearchField.jsx';
 import List from './List.jsx';
-import students from './students.json';
+import studentsJSON from './studentsJSON.json';
 
-const STUDENTS = students.students;
+const STUDENTS = studentsJSON.students;
 
-const ListApp = React.createClass({
+export default class ListApp extends Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             items: STUDENTS,
             nameFilter: ''
         };
-    },
+
+        this.searchChanged = this.searchChanged.bind(this);
+    };
 
     searchChanged(filterText) {
         this.setState({
             nameFilter: filterText
         });
-    },
+    };
 
     render() {
         const displayedItems = this.state.items.filter((student) =>
@@ -33,6 +37,4 @@ const ListApp = React.createClass({
             </div>
         );
     }
-});
-
-export default ListApp;
+}

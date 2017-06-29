@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import * as styles from './Entry.css';
 import cx from 'classnames';
 
-const Entry = React.createClass({
+export default class Entry extends Component {
 
     render() {
         const {
@@ -43,6 +43,4 @@ const Entry = React.createClass({
             </div>
         );
     }
-});
-
-export default Entry;
+}

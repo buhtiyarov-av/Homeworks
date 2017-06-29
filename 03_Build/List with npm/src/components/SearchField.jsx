@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import * as styles from './SearchField.css';
 
-const SearchField = React.createClass({
+export default class SearchField extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.handleFilterChange = this.handleFilterChange.bind(this);
+    };
 
     handleFilterChange(event) {
         this.props.updateFilter(event.target.value);
-    },
+    };
 
     render() {
 
@@ -17,6 +23,4 @@ const SearchField = React.createClass({
                 className={styles.inputField}/>
         );
     }
-});
-
-export default SearchField;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import * as styles from './List.css';
 
 import Entry from './Entry.jsx'
@@ -12,7 +12,7 @@ const PLACEHOLDER = [{
     "facebook": ""
 }];
 
-const List = React.createClass({
+export default class List extends Component {
 
     render() {
         const itemsGot = this.props.items || PLACEHOLDER;
@@ -34,6 +34,4 @@ const List = React.createClass({
             </div>
         );
     }
-});
-
-export default List;
+}
