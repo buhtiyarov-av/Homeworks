@@ -1,5 +1,5 @@
 import React from 'react';
-import './SearchField.css';
+import * as styles from './SearchField.css';
 
 const SearchField = React.createClass({
 
@@ -14,7 +14,7 @@ const SearchField = React.createClass({
                 type="text"
                 onChange={this.handleFilterChange}
                 placeholder="Enter the name"
-                className="input-field"/>
+                className={styles.inputField}/>
         );
     }
 });

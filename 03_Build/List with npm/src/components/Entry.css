@@ -6,7 +6,7 @@
     margin-top: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
-.entry-body {
+.entryBody {
     flex-grow: 1;
     max-width: 100%;
     margin-top: 2px;
@@ -19,7 +19,7 @@
     align-items: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
-.entry-text {
+.entryText {
     margin-top: -5px;
 }
 .name {

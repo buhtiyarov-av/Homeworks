@@ -1,5 +1,5 @@
 import React from 'react';
-import './List.css';
+import * as styles from './List.css';
 
 import Entry from './Entry.jsx'
 
@@ -17,7 +17,7 @@ const List = React.createClass({
     render() {
         const itemsGot = this.props.items || PLACEHOLDER;
         return(
-            <div className="list-body">
+            <div className={styles.listBody}>
                 {
                     itemsGot.map((student) =>
                         <Entry

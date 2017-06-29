@@ -1,5 +1,6 @@
 import React from 'react';
-import './Entry.css';
+import * as styles from './Entry.css';
+import cx from 'classnames';
 
 const Entry = React.createClass({
 
@@ -14,25 +15,25 @@ const Entry = React.createClass({
         } = this.props;
 
         return (
-            <div className="entry-body">
-                <img className="avatar" src={avatar}/>
-                <div className="entry-text">
-                    <p className="name">
+            <div className={styles.entryBody}>
+                <img className={styles.avatar} src={avatar}/>
+                <div className={styles.entryText}>
+                    <p className={styles.name}>
                         {name}
                     </p>
-                    <p className="city">
+                    <p className={styles.city}>
                         {location}
                     </p>
-                    <div className="contacts">
+                    <div className={styles.contacts}>
                         <a href={email}>
                             {email}
                         </a>
-                        <div className="social">
-                            <div className={"icon" + (facebook ? " facebook" : "")}/>
+                        <div className={styles.social}>
+                            <div className={facebook ? cx(styles.icon, styles.facebook) : ""}/>
                             <a href={facebook}>
                                 {facebook ? "facebook" : ""}
                             </a>
-                            <div className={"icon" + (github ? " github" : "")}/>
+                            <div className={github ? cx(styles.icon, styles.github) : ""}/>
                             <a href={github}>
                                 {github ? "github" : ""}
                             </a>
